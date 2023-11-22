@@ -84,7 +84,7 @@ class Needleman_and_wunsch:
         score_m = np.zeros((n,m))
         # This matrix contain at position index i,j the max value   
         max_drc =  np.zeros((n,m))  #max direction
-    
+        indices_matrix = np.array([])
         new_A , new_B = '',''
         
         # update the line: S_i0 = i*g    
@@ -100,10 +100,14 @@ class Needleman_and_wunsch:
                 ]
                 max_value = max(values)
                 indices_list = np.where(np.array(values) == max_value)[0]
+                print(indices_list)
                 # incase gap extenstion is used, flip the array to get the direction indice of a gap
                 if not opening_gap:
-                    # check the previous to extend the gap
+                    # check the indices list if there is a gap in the previous one and the current one keep it 
+                    # for this let check the intersection of the vurent indices_list and the indices_list of the privous one 
                     pass
+                else: 
+                    # 
 
                 score_m[i,j] = max_value
                 max_drc[i,j] = indices_list[0] 
@@ -141,7 +145,8 @@ class Needleman_and_wunsch:
                 new_A = A[j-1]+ new_A
                 j = j-1
 
-        
+        print(score)
+        print(max_drc)
         # Retrun score_m, max_drc, sequence A, sequence B, where a gap is represented as _
         return new_A, new_B, score
 
